@@ -22,8 +22,7 @@
  *  the ISR depending on the timeperioud of interest.
  * The most basic and useful is a once per second callback
  * 
- * Resources used:
- *  Timer/Counter 2, "8-bit Timer/Counter2 with PWM and Asynchronous Operation"
+ * @resources Timer/Counter2, "8-bit Timer/Counter2 with PWM and Asynchronous Operation"
  * 
  */
 
@@ -33,7 +32,7 @@
 
 /**
  * @var timestamp
- * @brief unix timestamp: seconds since epoch 
+ * @brief unix timestamp: seconds since epoch, or at least startup 
  **/
 extern uint32_t timestamp;
 
@@ -77,26 +76,30 @@ void clock_set_medium_time_callback(void (* medium_Callback)());
  * @section PWM
  * @brief Routines, defines and initialisation for PWM functions
  * 
- * Resources used:
- *  16-bit Timer/Counter1 with PWM
+ * @resource Timer/Counter1, 16-bit Timer/Counter1 with PWM
+ * @resource PB1/PB2
  **/
 
 /**
  * @brief Initialise the PWM
+ * @param top, The value of TOP for the PWM counter
+ * @param channels, Number of PWM channels. Valid values are 1 or 2. 1 for PB1 and 2 for PB1 and PB2
  * @return none
  * 
  * @todo Include parameters for frequency etc etc etc in PWM. Probably from #defines
  **/
-void init_pwm();
+void init_pwm(uint16_t top, uint8_t channels);
 
 /**
  * @brief Get the value of the PWM duty cycle register
- * @return unit16 the value of the PWM duty cycle
+ * @param channel, the PWM channel to get, 1 for A, 2 for B
+ * @return, unit16 the value of the PWM duty cycle
  **/
-uint16_t get_pwm();
+uint16_t get_pwm(uint8_t channel);
 
 /**
  * @brief Set the value of the PWM duty cycle register
- * @param duty, The value of the PWM duty cycle. uint16
+ * @param channel, uint8 the PWM channel to get, 1 for A, 2 for B
+ * @param duty, unint16, the value of the PWM duty cycle. uint16
  **/
-void set_pwm(uint16_t duty);
+void set_pwm(uint8_t channel, uint16_t duty);

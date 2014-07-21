@@ -61,10 +61,77 @@ void init_clock() {
 }
 
 /**************** PWM ********************************************************/
-void init_pwm()
+/** 
+ * @section PWM
+ * @brief Routines, defines and initialisation for PWM functions
+ * 
+ * @resource Timer/Counter1, 16-bit Timer/Counter1 with PWM
+ * @resource PB1/PB2
+ **/
+
+/**
+ * @brief Initialise the PWM
+ * @param top, The value of TOP for the PWM counter
+ * @param channels, Number of PWM channels. Valid values are 1 or 2. 1 for PB1 and 2 for PB1 and PB2
+ * @return none
+ * 
+ * @todo Include parameters for frequency etc etc etc in PWM. Probably from #defines
+ **/
+void init_pwm(uint16_t top, uint8_t channels)
 {
     //Disable Power Reduction Register in order to enable Timer/Counter1
     // by clearing PRTIM1
-    PPR &= !(1<<PRTIM1);
+    PPR &= !(1 << PRTIM1);
     
+    //Set PB1 and PB2 (OC1A and OC1B) as outputs
+    DDRB |= (1 << DDB1);
+    if (channels >= 2){
+        DDRB |= (1 << DDB2);
+    }
+    
+    //Set TOP to top (0xFFFF is 16bit)
+    OCR1 = top;
+    
+    //Set Duty Cylce to 0
+    OCR1A = 0;
+    OCR1B = 0;
+    
+    //Set non inverting mode on the output pin(s)
+    TCCR1A = (1 << COM1A1);
+    if (channels >= 2){
+        TCCR1A |= (1 << COM1B1);
+    }
+    
+    //Set PWM as Phase and Frequency correct mode with ICR1, mode 8
+    TCCR1B = (1 << WGM13);
+    
+    //Set the clocksource to internal, and no prescalar. Starts the PWM.
+    TCCR1B |= (1 << CS10);
+}
+
+/**
+ * @brief Get the value of the PWM duty cycle register
+ * @param channel, the PWM channel to get, 1 for A, 2 for B
+ * @return unit16 the value of the PWM duty cycle
+ **/
+uint16_t get_pwm(uint8_t channel)
+{
+    if (channel < 2){
+        return OCR1A;
+    }
+    else
+        return OCR1B;
+}
+
+/**
+ * @brief Set the value of the PWM duty cycle register
+ * @param duty, The value of the PWM duty cycle. uint16
+ **/
+void set_pwm(uint8_t channel, uint16_t duty)
+{
+    if (channel < 2){
+        OCR1A = duty;
+    }
+    else
+        OCR1B = duty;
 }
