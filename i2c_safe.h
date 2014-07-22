@@ -43,7 +43,7 @@
 
 /**
     @brief initialize the I2C master interace. Need to be called only once 
-    @param  I2Cfreq, the frequqncy of the ITC port in Hz
+    @param  I2Cfreq, the frequqncy of the I2C port in Hz. Must be less than 444kHz
     @param  Fcpu, micro clock speed in Hz
     @return none
 */

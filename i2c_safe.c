@@ -19,7 +19,7 @@
 
 
 /*************************************************************************
- I nitialization* of the I2C bus interface. Need to be called only once
+ * Initialization of the I2C bus interface. Need to be called only once
  *************************************************************************/
 void i2c_init(uint32_t I2Cfreq, uint16_t fcpu)
 {
