@@ -24,7 +24,7 @@ DETAILS_AT_TOP         = YES
 INHERIT_DOCS           = YES
 DISTRIBUTE_GROUP_DOC   = YES
 TAB_SIZE               = 8
-ALIASES                += "resources=\xrefitem resources \"Resources\" \"Resources\"" 
+ALIASES                += "resource=\xrefitem resources \"Resource\" \"Resources\"" 
 OPTIMIZE_OUTPUT_FOR_C  = YES
 OPTIMIZE_OUTPUT_JAVA   = NO
 SUBGROUPING            = YES
