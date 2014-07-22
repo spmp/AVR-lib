@@ -1,16 +1,21 @@
-/**
+/*This file has been prepared for Doxygen automatic documentation generation.*/
+/** 
  * @file timers.h
- * @author Jasper Aorangi
- * @date 10 July 2014
- * @brief Header for timer related function for AVM
  *
+ * @brief Header for timers.c, Timers and related functions such as PWM
+ *
+ * - Compiler:          gcc-avr
+ * - Project:           AVR-lib
+ * - uC                 AVR
+ * 
  * This library encapsulates timer related operations for Atmel AVR.
  * Specifically for my projects using ATMEGA 328p.
  *  At this time, I have functions for a 'clock', a once per second
  *  'tick' and for PWM.
  * 
- */
-
+ * @author              Jasper Aorangi
+ * @Date: July 2014
+ *****************************************************************************/
 #pragma once
 #include <avr/io.h>
 #include <avr/interrupt.h>

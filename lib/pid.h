@@ -19,7 +19,6 @@
  *****************************************************************************/
 
 /** @todo move p_factor etc into the PID routine in case we have multiple PID events **/
-
 #pragma once
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -52,9 +51,9 @@ typedef struct PID_DATA{
  * Needed to avoid sign/overflow problems
  */
 // Maximum value of variables
-#define MAX_INT         INT16_MAX
-#define MAX_LONG        INT32_MAX
-#define MAX_I_TERM      (MAX_LONG / 2)
+#define MAX_INT         0x7FFF
+#define MAX_LONG        0x7FFFFFFFL
+#define MAX_I_TERM      (0x7FFFFFFFL / 2)
 
 // Boolean values
 #define FALSE           0

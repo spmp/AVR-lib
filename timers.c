@@ -1,4 +1,21 @@
-#include <avr/interrupt.h>
+/*This file has been prepared for Doxygen automatic documentation generation.*/
+/** 
+ * @file timers.c
+ *
+ * @brief timers.c, Timers and related functions such as PWM
+ *
+ * - Compiler:          gcc-avr
+ * - Project:           AVR-lib
+ * - uC                 AVR
+ * 
+ * This library encapsulates timer related operations for Atmel AVR.
+ * Specifically for my projects using ATMEGA 328p.
+ *  At this time, I have functions for a 'clock', a once per second
+ *  'tick' and for PWM.
+ * 
+ * @author              Jasper Aorangi
+ * @Date: July 2014
+ *****************************************************************************/
 #include "timers.h"
 
 void (* oncePerSecondCallback)();       // void function pointer
@@ -81,7 +98,7 @@ void init_pwm(uint16_t top, uint8_t channels)
 {
     //Disable Power Reduction Register in order to enable Timer/Counter1
     // by clearing PRTIM1
-    PPR &= !(1 << PRTIM1);
+    PRR &= !(1 << PRTIM1);
     
     //Set PB1 and PB2 (OC1A and OC1B) as outputs
     DDRB |= (1 << DDB1);
@@ -90,7 +107,7 @@ void init_pwm(uint16_t top, uint8_t channels)
     }
     
     //Set TOP to top (0xFFFF is 16bit)
-    OCR1 = top;
+    ICR1 = top;
     
     //Set Duty Cylce to 0
     OCR1A = 0;

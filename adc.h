@@ -1,10 +1,9 @@
 /*This file has been prepared for Doxygen automatic documentation generation.*/
 /** 
- * @file *********************************************************************
+ * @file adc.h
  *
  * @brief Header for adc.c, accessig the internal ADC's
  *
- * - File:              hardware.h
  * - Compiler:          gcc-avr
  * - Project:           AVR-lib
  * - uC                 AVR Mega328p on Arduino Nano board
@@ -12,7 +11,6 @@
  * @author              Jasper Aorangi
  * @Date: July 2014
  *****************************************************************************/
-
 #pragma once
 #include <avr/io.h>
 
@@ -35,17 +33,7 @@
 // Set the voltage of the external reference somewhere with
 // #undef EXTERNAL_MILLI_VOLT
 // #define EXTERNAL_MILLI_VOLT YourVoltageX1000
-#define EXTERNAL_MILLI_VOLT 5000
-
-/**
- * @brief Initialise the ADC pins
- * 
- * This routine simply clears both DDRA.n and PORTA.n
- * @resource  Any of pins A0-A7
- * @param pin, The ADC pin to be use. 0-7
- * @return void
- **/
-void init_ADC_pin(uint8_t pin);
+#define EXTERNAL_MILLIVOLT 5000
 
 /**
  * @brief Read ADC pin, returning value
