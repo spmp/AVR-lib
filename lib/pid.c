@@ -194,3 +194,45 @@ void pid_Reset_Integrator(pidData_t *pid_st)
 {
   pid_st->sumError = 0;
 }
+
+
+/**
+ * @brief Simple proportional control algorythm.
+ * @param Measured: The measured value
+ * @param SetPoint: The setpoint to be optained from measurement
+ * @param MeasuredMax: The maxium measured value
+ * @param OutputMax: The maxium output value
+ * @param Proportionality: The proportional quantity modifying the difference
+ * @param Power: The power to which the difference is raised. Must be an odd number! (i.e. 1 or 3)
+ * @return The calculated addition to the Output quantity
+ * 
+ * @description 
+ * This algorythom works as follows
+ *  OUTPUT = (Proportionality * Gamma * (SetPoint - Measured ))^Power
+ *  Where Gamma is a linear transfer function for the range of measured values VS the range out Output Values such that they are normaliesd.
+ *  In terms of unit analysis, we want OUTPUT to be of type OUTPUT, so we require Gamma = OutputMax*MeasuredMax 
+ **/
+int32_t pid_proportional( int32_t Measured, int32_t SetPoint, int32_t MeasuredMax, int32_t OutputMax, float Proportionality, uint8_t Power){
+    float Gamma;
+    Gamma = OutputMax / MeasuredMax;
+    
+    return pow(Proportionality*Gamma*(SetPoint-Measured),Power);
+}
+
+/**
+ * @brief Simple proportional control algorythm V2 for large value input
+ * @param Measured: The measured value
+ * @param SetPoint: The setpoint to be optained from measurement
+ * @param Proportionality: The proportional quantity modifying the difference
+ * @return The calculated addition to the Output quantity
+ **/
+int32_t pid_proportional_current( int32_t Measured, int32_t SetPoint, int16_t Proportion, int16_t MinMax){
+    int16_t delta;
+    delta = (SetPoint-Measured)/Proportion;
+    if (delta < -MinMax)
+        return -MinMax;
+    else if (delta >= MinMax)
+            return MinMax;
+    else 
+        return  delta;
+}

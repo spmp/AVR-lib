@@ -22,6 +22,21 @@
 #pragma once
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <math.h>
+//DEBUG only
+#include "../usart.h"
+
+#define max(a,b) \
+({ __typeof__ (a) _a = (a); \
+__typeof__ (b) _b = (b); \
+_a > _b ? _a : _b; })
+
+#define min(a,b) \
+({ __typeof__ (a) _a = (a); \
+__typeof__ (b) _b = (b); \
+_a < _b ? _a : _b; })
+
+
 
 #define SCALING_FACTOR  128
 
@@ -122,3 +137,24 @@ int16_t u_pid_Controller(uint16_t setPoint, uint16_t processValue, struct u_PID_
  * @param *pid_st, struct PID_DATA,  PID status.
  */
 void pid_Reset_Integrator(pidData_t *pid_st);
+
+/**
+ * @brief Simple proportional control algorythm
+ * @param Measured: The measured value
+ * @param SetPoint: The setpoint to be optained from measurement
+ * @param MeasuredMax: The maxium measured value
+ * @param OutputMax: The maxium output value
+ * @param Proportionality: The proportional quantity modifying the difference
+ * @param Power: The power to which the difference is raised. Must be an odd number! (i.e. 1 or 3)
+ * @return The calculated addition to the Output quantity
+ **/
+int32_t pid_proportional( int32_t Measured, int32_t setPoint, int32_t MeasuredMax, int32_t OutputMax, float Proportionality, uint8_t Power);
+
+/**
+ * @brief Simple proportional control algorythm V2 for large value input
+ * @param Measured: The measured value
+ * @param SetPoint: The setpoint to be optained from measurement
+ * @param Proportionality: The proportional quantity modifying the difference
+ * @return The calculated addition to the Output quantity
+ **/
+int32_t pid_proportional_current( int32_t Measured, int32_t SetPoint, int16_t Proportion, int16_t MinMax);
