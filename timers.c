@@ -87,7 +87,7 @@ void init_clock() {
  **/
 
 /**
- * @brief Initialise the PWM
+ * @brief Initialise PWM on timer1 in Frequency and phase corrected mode.
  * @param top, The value of TOP for the PWM counter
  * @param channels, Number of PWM channels. Valid values are 1 or 2. 1 for PB1 and 2 for PB1 and PB2
  * @return none

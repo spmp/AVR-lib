@@ -10,7 +10,7 @@ int in_start = 0;
 char line_buffer[MAX_LINE_LEN+1];
 int num_char = 0;
 
-/* usart enable send/recv mode: 8N1 @ 57600 */
+/* usart enable send/recv mode: 8N1 @ baude */
 void init_usart(uint16_t baude, uint32_t fcpu) {
     UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
     UCSR0C = (1 << UCSZ00) | (1 << UCSZ01);
@@ -25,6 +25,17 @@ void usart_set_handle_char_string_from_serial(void (* handlecharstring)(const ch
 void send_char(uint8_t byte) {
     while (!(UCSR0A & (1<<UDRE0)));
     UDR0 = byte;
+}
+
+/* write a 8 bit integer to the usart in ascii decimal */
+void send_uint8(uint8_t num) {
+    uint8_t mult = 100;
+    for (uint8_t i=0; i<3; i++) {
+        uint8_t face_value = num / mult;
+        send_char('0' + face_value);
+        num -= face_value * mult;
+        mult /= 10;
+    }
 }
 
 /* write a 16 bit integer to the usart in ascii decimal */

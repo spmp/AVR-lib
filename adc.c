@@ -2,7 +2,7 @@
 /** 
  * @file adc.c
  *
- * @brief Header for adc.c, accessig the internal ADC's
+ * @brief Functions for accessig the internal ADC's
  *
  * - Compiler:          gcc-avr
  * - Project:           AVR-lib

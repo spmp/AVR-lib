@@ -24,6 +24,9 @@ void init_usart(uint16_t baude, uint32_t fcpu);
 /* write a byte as given to the usart */
 void send_char(uint8_t byte);
 
+/* write a 8 bit integer to the usart in ascii decimal */
+void send_uint8(uint8_t num);
+
 /* write a 16 bit integer to the usart in ascii decimal */
 void send_uint16(uint16_t num);
 
