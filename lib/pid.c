@@ -220,6 +220,31 @@ int32_t pid_proportional( int32_t Measured, int32_t SetPoint, int32_t MeasuredMa
 }
 
 /**
+ * @brief Simple proportional control algorythm.
+ * @param Measured: The measured value
+ * @param SetPoint: The setpoint to be optained from measurement
+ * @param MeasuredMax: The maxium measured value
+ * @param OutputMax: The maxium output value
+ * @param Proportionality: The proportional quantity modifying the difference
+ * @param Power: The power to which the difference is raised. Must be an odd number! (i.e. 1 or 3)
+ * @param Max: The maximum outut
+ * @return The calculated addition to the Output quantity
+ * 
+ * @description 
+ * This algorythom works as follows
+ *  OUTPUT = (Proportionality * Gamma * (SetPoint - Measured ))^Power
+ *  Where Gamma is a linear transfer function for the range of measured values VS the range out Output Values such that they are normaliesd.
+ *  In terms of unit analysis, we want OUTPUT to be of type OUTPUT, so we require Gamma = OutputMax*MeasuredMax 
+ **/
+int32_t pid_proportional_max( int32_t Measured, int32_t SetPoint, int32_t MeasuredMax, int32_t OutputMax, float Proportionality, uint8_t Power, int32_t max ){
+    float Gamma;
+    Gamma = OutputMax / MeasuredMax;
+    
+    return max(min(pow(Proportionality*Gamma*(SetPoint-Measured),Power), max), -max);
+}
+
+
+/**
  * @brief Simple proportional control algorythm V2 for large value input
  * @param Measured: The measured value
  * @param SetPoint: The setpoint to be optained from measurement
