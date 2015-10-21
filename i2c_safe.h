@@ -189,7 +189,15 @@ extern unsigned char i2c_safe_write(unsigned char data);
     @retval     I2C_SAFE_READ_ERROR_CODE if read fails
 */
  uint16_t i2c_safe_read_sixteen(uint8_t address, uint8_t reg);
- 
+
+ /**
+    @brief      Write register address only to I2C device, given address and register
+    @param      address 7 bit I2C address
+    @param      reg     Register address
+    @return     error   Error code as 1, device failed to acknowledge, or <write address><start write data word>
+*/
+uint8_t i2c_safe_write_reg(uint8_t address, uint8_t reg);
+
 /** @brief      Write an 8 bit word to I2C device, given address and register
     @param      address 7 bit I2C address
     @param      reg     Register address. 0xFF is for no register for dumb device

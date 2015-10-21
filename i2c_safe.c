@@ -386,6 +386,23 @@ uint16_t i2c_safe_read_sixteen(uint8_t address, uint8_t reg){
     }
 }/*i2c_safe_read_sixteen*/
 
+/**
+    @brief      Write register address only to I2C device, given address and register
+    @param      address 7 bit I2C address
+    @param      reg     Register address
+    @return     error   Error code as 1, device failed to acknowledge, or <write address><start write data word>
+*/
+uint8_t i2c_safe_write_reg(uint8_t address, uint8_t reg){
+    if (!i2c_start((address << 1)| I2C_WRITE)){
+        uint8_t error = (i2c_write(reg) <<1); //Set the pointer register
+        i2c_stop();
+        return error;
+    }
+    else {
+        return 1;
+    }
+//     uint8_t error = (i2c_start((address << 1)| I2C_WRITE)<<2); //Address of the device in write mode
+}/*i2c_safe_write_reg*/
 
 /**
     @brief      Write an 8 bit word to I2C device, given address and register
