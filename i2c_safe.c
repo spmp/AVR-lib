@@ -484,3 +484,38 @@ void i2c_safe_write_scan_bus(uint8_t start_addr, uint8_t stop_addr){
         start_addr++;
     }
 }/*i2c_safe_write_scan_bus*/
+
+/**
+    @brief      Scan the I2C bus for acknowledging devices in read mode
+    @param      start_addr 7 bit I2C address to start scanning at (highest value)
+    @param      stop_addr  7 bit I2C address at which to stop scanning
+    @return     address    7 bit I2C address of acknowledging device
+    TODO: Place these in an array (of unknown size) to remove dependency on usart.h
+*/
+void i2c_read_scan_bus(uint8_t start_addr, uint8_t stop_addr){
+    while ( start_addr <= stop_addr){
+        if (!i2c_start((start_addr<<1)|I2C_READ)){
+            send_uint16(start_addr);
+            send_newline();
+        }
+        start_addr++;
+    }
+}/*i2c_safe_read_scan_bus*/
+
+
+/**
+    @brief      Scan the I2C bus for acknowledging devices in write mode
+    @param      start_addr 7 bit I2C address to start scanning at (highest value)
+    @param      stop_addr  7 bit I2C address at which to stop scanning
+    @return     address    7 bit I2C address of acknowledging device
+    TODO: Place these in an array (of unknown size) to remove dependency on usart.h
+*/
+void i2c_write_scan_bus(uint8_t start_addr, uint8_t stop_addr){
+    while ( start_addr <= stop_addr){
+        if (!i2c_start((start_addr<<1)|I2C_WRITE)){
+            send_uint16(start_addr);
+            send_newline();
+        }
+        start_addr++;
+    }
+}/*i2c_safe_write_scan_bus*/
