@@ -20,23 +20,14 @@ extern "C" {
 
 #ifdef OW_ONE_BUS
 
-#ifndef OW_PIN
 #define OW_PIN  PB0
-#endif
-#ifndef OW_IN
 #define OW_IN   PINB
-#endif
-#ifndef OW_OUT
 #define OW_OUT  PORTB
-#endif
-#ifndef OW_DDR
 #define OW_DDR  DDRB
-#endif
-#ifndef OW_CONF_DELAYOFFSET
 #define OW_CONF_DELAYOFFSET 0
-#endif
 
 #else 
+
 #if ( F_CPU < 1843200 )
 #warning | Experimental multi-bus-mode is not tested for 
 #warning | frequencies below 1,84MHz. Use OW_ONE_WIRE or
@@ -44,6 +35,23 @@ extern "C" {
 #endif
 #define OW_CONF_CYCLESPERACCESS 13
 #define OW_CONF_DELAYOFFSET ( (uint16_t)( ((OW_CONF_CYCLESPERACCESS) * 1000000L) / F_CPU ) )
+
+#endif
+
+#ifndef OWPIN
+#define OWPIN PB0
+#endif
+#ifndef OWIN
+#define OWIN PINB
+#endif
+#ifndef OWOUT
+#define OWOUT PORTB
+#endif
+#ifndef OWDDR
+#define OWDDR DDRB
+#endif
+#ifndef OW_CONF_DELAYOFFSET
+#define OWCONF_DELAYOFFSET 0
 #endif
 
 // Recovery time (T_Rec) minimum 1usec - increase for long lines 
@@ -51,13 +59,17 @@ extern "C" {
 // 30u secs seem to be reliable for longer lines
 //#define OW_RECOVERY_TIME        5  /* usec */
 //#define OW_RECOVERY_TIME      300 /* usec */
+#ifndef OW_RECOVERY_TIME
 #define OW_RECOVERY_TIME         10 /* usec */
+#endif
 
 // Use AVR's internal pull-up resistor instead of external 4,7k resistor.
 // Based on information from Sascha Schade. Experimental but worked in tests
 // with one DS18B20 and one DS18S20 on a rather short bus (60cm), where both 
 // sensores have been parasite-powered.
+#ifndef OW_USE_INTERNAL_PULLUP
 #define OW_USE_INTERNAL_PULLUP     0  /* 0=external, 1=internal */
+#endif
 
 /*******************************************/
 

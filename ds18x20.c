@@ -601,7 +601,7 @@ uint8_t ds18x20_init(uint8_t resolution) {
     
     #ifndef OW_ONE_BUS
         // TODO: Make this dynamic!
-        ow_set_bus(&PINB,&PORTB,&DDRB,PB0);
+        ow_set_bus(&OWIN,&OWOUT,&OWDDR,OWPIN);;
     #endif
 
     // scan the bus saving addresses

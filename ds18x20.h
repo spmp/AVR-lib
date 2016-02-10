@@ -14,7 +14,7 @@ extern "C" {
 #include <avr/io.h>
 
 #include "onewire.h"
-#include "crc8.h"
+// #include "crc8.h"
 
 // DS18x20 EERPROM support disabled(0) or enabled(1) :
 #define DS18X20_EEPROMSUPPORT     1

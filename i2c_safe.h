@@ -231,3 +231,7 @@ uint8_t i2c_safe_write_reg(uint8_t address, uint8_t reg);
 */
  void i2c_safe_write_scan_bus(uint8_t start_addr, uint8_t stop_addr);
  
+void i2c_read_scan_bus(uint8_t start_addr, uint8_t stop_addr);
+ 
+void i2c_write_scan_bus(uint8_t start_addr, uint8_t stop_addr);
+ 

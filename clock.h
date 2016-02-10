@@ -1,9 +1,16 @@
 #pragma once
 #include <avr/io.h>
 
-/* Medium and fast time intervals in 1/125'th of a second */
+/* Long, medium, and fast time intervals in 1/125'th of a second */
+#ifndef LONG_TIME_INTERVAL
+#define LONG_TIME_INTERVAL      7500L //MAX 2^32 = 397 days
+#endif
+#ifndef MEDIUM_TIME_INTERVAL
 #define MEDIUM_TIME_INTERVAL    25
+#endif
+#ifndef FAST_TIME_INTERVAL
 #define FAST_TIME_INTERVAL      5
+#endif
 
 /* Resources: Timer/Counter 2 */
 
@@ -25,3 +32,7 @@ void clock_set_fast_time_callback(void (* fast_Callback)());
 /* callback that is called once every MEDIUM_TIME_INTERVAL. For closer to realtime activity
  * N.B. is called within an interrupt */
 void clock_set_medium_time_callback(void (* medium_Callback)());
+
+/* callback that is called once every LONG_TIME_INTERVAL. For closer to realtime activity
+ * N.B. is called within an interrupt */
+void clock_set_long_time_callback(void (* medium_Callback)());
