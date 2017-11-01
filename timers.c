@@ -14,7 +14,7 @@
  *  'tick' and for PWM.
  * 
  * @author              Jasper Aorangi
- * @Date: July 2014
+ * @Date: 2017
  *****************************************************************************/
 #include "timers.h"
 
@@ -55,7 +55,7 @@ ISR(TIMER2_COMPA_vect) {
         mediumCallback();
     }
     
-    if (ticks >= 125) {
+    if (ticks >= TICKS_PER_SECOND) {
         ticks = 0;
         timestamp += 1;
         if (timestamp >= 86401) { //roll over for 24 hours

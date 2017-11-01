@@ -9,7 +9,7 @@
  * - uC                 AVR Mega328p on Arduino Nano board
  * 
  * @author              Jasper Aorangi
- * @Date: July 2014
+ * @Date: 2017
  *****************************************************************************/
 #include "adc.h"
 
@@ -110,4 +110,17 @@ uint16_t read_ADC_pin_millivolts(uint8_t pin, uint8_t vref)
             return ((uint32_t)ADC*5000)/1024;
             break;
     }
+}
+
+/**
+ * @brief Read ADC pin, returning float using linear calibration with slope and offset
+ * 
+ * @param pin, The ADC pin to be read. 0-7
+ * @param vref, The voltage reference. 0 = 1.1, 1 = external, >=2 = Vcc
+ * @param slope, The slope (m) of the linear calibration curve f(x) = m*x + c
+ * @param offset, The offset/zero crossing (c) of the linear calibration curve f(x) = m*x + c
+ * @return float, The linearly calibrated ADC value
+ **/ 
+float read_ADc_pin_linearFunc(uint8_t pin, uint8_t vref, float slope, float offset){
+  return float(read_ADC_pin(pin, vref))*slope + offset;
 }

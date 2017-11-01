@@ -2,14 +2,13 @@
 #include <avr/io.h>
 
 /* Long, medium, and fast time intervals in 1/125'th of a second */
-#ifndef LONG_TIME_INTERVAL
-#define LONG_TIME_INTERVAL      7500L //MAX 2^32 = 397 days
-#endif
+/* Medium and fast time intervals in 1/125'th of a second */
+#define CLOCK_TICKS_PER_SECOND  125L // DONT CHANGE, place holder not configable
 #ifndef MEDIUM_TIME_INTERVAL
-#define MEDIUM_TIME_INTERVAL    25
+#define MEDIUM_TIME_INTERVAL    25L
 #endif
 #ifndef FAST_TIME_INTERVAL
-#define FAST_TIME_INTERVAL      5
+#define FAST_TIME_INTERVAL      5L
 #endif
 
 /* Resources: Timer/Counter 2 */
@@ -19,6 +18,9 @@ extern uint32_t timestamp;
 
 /* 125 ticks per second */
 extern uint16_t ticks;
+
+/* Long time interval is user configurable */
+extern uint32_t long_time_interval;
 
 void init_clock();
 

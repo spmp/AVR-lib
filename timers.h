@@ -14,7 +14,7 @@
  *  'tick' and for PWM.
  * 
  * @author              Jasper Aorangi
- * @Date: July 2014
+ * @Date: 2017
  *****************************************************************************/
 #pragma once
 #include <avr/io.h>
@@ -33,8 +33,11 @@
  */
 
 /* Medium and fast time intervals in 1/125'th of a second */
+#define TICKS_PER_SECOND        125
 #define MEDIUM_TIME_INTERVAL    25
+#define MEDIUM_TIME_FRACTION    TICKS_PER_SECOND / MEDIUM_TIME_INTERVAL
 #define FAST_TIME_INTERVAL      5
+#define FAST_TIME_FRACTION      TICKS_PER_SECOND / FAST_TIME_INTERVAL
 
 /**
  * @var timestamp

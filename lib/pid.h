@@ -161,19 +161,34 @@ int32_t pid_proportional( int32_t Measured, int32_t setPoint, int32_t MeasuredMa
  * @param Max: The maximum outut
  * @return The calculated addition to the Output quantity
  * 
- * @description 
- * This algorythom works as follows
- *  OUTPUT = (Proportionality * Gamma * (SetPoint - Measured ))^Power
- *  Where Gamma is a linear transfer function for the range of measured values VS the range out Output Values such that they are normaliesd.
- *  In terms of unit analysis, we want OUTPUT to be of type OUTPUT, so we require Gamma = OutputMax*MeasuredMax 
+ * @description This algorythom works as follows
+ *  OUTPUT = (Proportionality * Gamma * (SetPoint - Measured ))^Power,
+ *  where Gamma is a linear transfer function for the range of measured values VS
+ *  the range out Output Values such that they are normaliesd.
+ *  In terms of unit analysis, we want OUTPUT to be of type OUTPUT, so we require
+ *  Gamma = OutputMax / MeasuredMax 
  **/
-int32_t pid_proportional_max( int32_t Measured, int32_t SetPoint, int32_t MeasuredMax, int32_t OutputMax, float Proportionality, uint8_t Power, int32_t max );
+int32_t pid_proportional_max(
+  int32_t Measured,
+  int32_t SetPoint,
+  int32_t MeasuredMax,
+  int32_t OutputMax,
+  float   Proportionality,
+  uint8_t Power,
+  int32_t Max
+);
 
 /**
  * @brief Simple proportional control algorythm V2 for large value input
- * @param Measured: The measured value
- * @param SetPoint: The setpoint to be optained from measurement
- * @param Proportionality: The proportional quantity modifying the difference
- * @return The calculated addition to the Output quantity
+ * @param Measured The measured value
+ * @param SetPoint The setpoint for measured value
+ * @param Proportion The (P)roportional quantity modifying the difference
+ * @param MinMax The absolute value of the maximal output value
+ * @return Calculated control parameter
  **/
-int32_t pid_proportional_current( int32_t Measured, int32_t SetPoint, int16_t Proportion, int16_t MinMax);
+int32_t pid_proportional_simple(
+  int32_t Measured,
+  int32_t SetPoint,
+  int16_t Proportion,
+  int16_t MinMax
+);
